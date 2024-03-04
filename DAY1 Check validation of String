@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[50];
+    int isValid = 1;
+
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    for (int i = 0; i < strlen(str); i++) {
+        if (!(str[i] >= 'a' && str[i] <= 'z') && !(str[i] >= 'A' && str[i] <= 'Z')) {
+            isValid = 0;
+            break;
+        }
+    }
+
+    if (isValid) {
+        printf("The string is valid.\n");
+    } else {
+        printf("The string is not valid.\n");
+    }
+printf("reg_no:192324134\n");
+    return 0;
+}
