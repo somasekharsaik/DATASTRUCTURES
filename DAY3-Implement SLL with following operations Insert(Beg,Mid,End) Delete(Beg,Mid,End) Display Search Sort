@@ -1,0 +1,122 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int data;
+  struct node *prev,*next;
+}*n,*head,*tail;
+void ins_beg(int num)
+{
+  n=(struct node*)malloc(sizeof(struct node));
+  n->data=num;
+  n->prev=NULL;
+  n->next=NULL;
+  if(head==NULL)
+  {
+    head=n;
+    tail=n;
+  }
+  else
+  {
+    n->next=head;
+    head->prev=n;
+    n->prev=NULL;
+    head=n;
+  }
+}
+void ins_mid(int num,int ref)
+{
+  struct node *t;
+  n=(struct node*)malloc(sizeof(struct node));
+  n->data=num;
+  n->prev=NULL;
+  n->next=NULL;
+  t=head;
+  while(t!=NULL)
+  {
+    if(t->data==ref)
+    break;
+    t=t->next;
+  }
+  t->prev->next=n;
+  n->prev=t->prev;
+  t->prev=n;
+  n->next=t;
+}
+void ins_end(int num)
+{
+  n=(struct node*)malloc(sizeof(struct node));
+  n->data=num;
+  n->prev=NULL;
+  n->next=NULL;
+  if(head==NULL)
+  {
+    head=n;
+    tail=n;
+  }
+  else
+  {
+    tail->next=n;
+    n->prev=tail;
+    tail=n;
+  }
+}
+void del_beg()
+{
+  struct node *t;
+  t=head;
+  head=t->next;
+  head->prev=NULL;
+  free(t);
+}
+void del_mid(int ref)
+{
+  struct node *t;
+  t=head;
+  while(t->data!=ref)
+  {
+    t=t->next;
+  }
+  t->next->prev=t->prev;
+  t->prev->next=t->next;
+  free(t);
+}
+void del_end()
+{
+  struct node *t,*tp;
+  t=head;
+  while(t->next!=NULL)
+  {
+    tp=t;
+    t=t->next;
+  }
+  tp->next=NULL;
+  tail=tp;
+  free(t);
+}
+void display()
+{
+  struct node *t;
+  t=head;
+  while(t!=NULL)
+  {
+    printf("| %d | %d | %d |",t->prev,t->data,t->next);
+    t=t->next;
+  }
+}
+int main()
+{
+  ins_beg(10);
+  ins_beg(20);
+  ins_beg(30);
+  ins_end(50);
+  ins_mid(40,20);
+  ins_end(60);
+  ins_mid(70,40);
+  del_beg();
+  del_mid(50);
+  del_end();
+  display();
+  printf("reg_no:192324134\n");
+return 0;
+}
